@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Garage - Home Portal</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .hover-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(30, 30, 36, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+            padding: 12px;
+        }
+        .service-card:hover .hover-overlay {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+
+    <header class="bg-slate-900 border-b-3 border-orange-400 p-5 shadow-xl">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl animate-spin" style="animation-duration: 10s;">⚙️</span>
+                <h1 class="text-2xl font-black tracking-wide">MOBILE <span class="text-orange-400">GARAGE</span></h1>
+            </div>
+            <span class="bg-slate-800 border border-slate-700 text-xs px-3 py-1 rounded font-bold">CENTRAL HUB</span>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 space-y-12 mt-6">
+        <section class="text-center space-y-3 py-6">
+            <h2 class="text-3xl font-black">On-Demand Roadside Assistance Systems</h2>
+            <p class="text-slate-400 text-sm max-w-lg mx-auto">Get connected directly to localized professional field mechanics. Choose your service tracking mode below.</p>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-slate-900 border border-red-500/30 rounded-2xl p-6 flex flex-col justify-between space-y-6 shadow-2xl hover:border-red-500 transition-all">
+                <div class="space-y-2">
+                    <span class="text-4xl">🚨</span>
+                    <h3 class="text-xl font-black text-red-400">EMERGENCY SOS MODE</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Stuck on the road right now? Use this to instantly capture your coordinates, ping local breakdown mechanics, and request immediate live help on site.</p>
+                </div>
+                <a href="emergency.html" class="block w-full text-center bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl text-xs tracking-wider uppercase transition-all">LAUNCH EMERGENCY SOS</a>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between space-y-6 shadow-2xl hover:border-orange-400/40 transition-all">
+                <div class="space-y-2">
+                    <span class="text-4xl">📅</span>
+                    <h3 class="text-xl font-black text-orange-400">NORMAL SERVICE BOOKING</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Need a general servicing visit or routine checkups? Schedule an appointment at a convenient date and time window that fits your calendar checklist.</p>
+                </div>
+                <a href="booking.html" class="block w-full text-center bg-orange-400 hover:bg-orange-500 text-slate-950 font-black py-3 rounded-xl text-xs tracking-wider uppercase transition-all">BOOK NORMAL APPOINTMENT</a>
+            </div>
+        </section>
+
+        <section class="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl space-y-6">
+            <h3 class="font-black text-sm text-slate-400 uppercase tracking-widest text-center">Supported Maintenance Clauses (Hover to view facilities)</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-xs">
+                
+                <div class="service-card bg-slate-900 p-6 rounded-xl border border-slate-800 h-32 flex flex-col justify-center items-center">
+                    <span class="text-2xl">🚗</span>
+                    <span class="font-bold block mt-2 text-slate-200">Car Repairs</span>
+                    <div class="hover-overlay">
+                        <span class="text-orange-400 font-bold mb-1">Car Facilities:</span>
+                        <p class="text-[10px] text-slate-300">● Engine Diagnostics<br>● Brake Repair<br>● Battery Replacement</p>
+                    </div>
+                </div>
+
+                <div class="service-card bg-slate-900 p-6 rounded-xl border border-slate-800 h-32 flex flex-col justify-center items-center">
+                    <span class="text-2xl">AM🏍️</span>
+                    <span class="font-bold block mt-2 text-slate-200">Bike Servicing</span>
+                    <div class="hover-overlay">
+                        <span class="text-orange-400 font-bold mb-1">Bike Facilities:</span>
+                        <p class="text-[10px] text-slate-300">● Chain Lubrication<br>● Carburetor Clean<br>● Spark Plug Check</p>
+                    </div>
+                </div>
+
+                <div class="service-card bg-slate-900 p-6 rounded-xl border border-slate-800 h-32 flex flex-col justify-center items-center">
+                    <span class="text-2xl">🛞</span>
+                    <span class="font-bold block mt-2 text-slate-200">Tire Puncture</span>
+                    <div class="hover-overlay">
+                        <span class="text-orange-400 font-bold mb-1">Tire Facilities:</span>
+                        <p class="text-[10px] text-slate-300">● Tubeless Plug Patch<br>● Air Inflation Swap<br>● Wheel Stepney Lock</p>
+                    </div>
+                </div>
+
+                <div class="service-card bg-slate-900 p-6 rounded-xl border border-slate-800 h-32 flex flex-col justify-center items-center">
+                    <span class="text-2xl">🔋</span>
+                    <span class="font-bold block mt-2 text-slate-200">Battery Jump</span>
+                    <div class="hover-overlay">
+                        <span class="text-orange-400 font-bold mb-1">Battery Facilities:</span>
+                        <p class="text-[10px] text-slate-300">● Jumper Cable Start<br>● Voltage Diagnostics<br>● Terminal Cleaning</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+</body>
+</html>

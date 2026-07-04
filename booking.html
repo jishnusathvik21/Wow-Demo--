@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Garage - Schedule Service</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
+            display: flex; justify-content: center; align-items: center; z-index: 100;
+        }
+        /* Custom safety rule ensures the modal stays hidden by default */
+        .popup-hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+
+    <!-- SUCCESS BOOKING POP-UP MODAL -->
+    <div id="successModal" class="modal-overlay popup-hidden">
+        <div class="bg-slate-900 border-2 border-emerald-400 p-8 rounded-2xl max-w-sm w-full text-center shadow-2xl space-y-4">
+            <div class="w-16 h-16 bg-emerald-500/10 text-emerald-400 border-2 border-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto">✓</div>
+            <h3 class="text-xl font-black text-slate-100">BOOKING SUCCESSFUL</h3>
+            <p id="successModalText" class="text-xs text-slate-400 leading-relaxed"></p>
+            <button id="closeModalBtn" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-2.5 rounded-xl text-xs tracking-wide transition-colors">OKAY</button>
+        </div>
+    </div>
+
+    <header class="bg-slate-900 border-b-3 border-orange-400 p-5 shadow-xl">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-black tracking-wide">MOBILE <span class="text-orange-400">GARAGE</span></h1>
+            <a href="index.html" class="text-xs bg-slate-800 text-slate-200 px-3 py-1 rounded font-bold">← BACK</a>
+        </div>
+    </header>
+
+    <main class="max-w-xl mx-auto p-4 mt-8">
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+            <div>
+                <h2 class="text-xl font-black">Schedule Normal Maintenance</h2>
+                <p class="text-xs text-slate-400 mt-1">Book routine checks, fluid maintenance, or parts changes securely.</p>
+            </div>
+
+            <form id="normalServiceForm" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Select Vehicle Class</label>
+                    <select id="vehicleType" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 outline-none">
+                        <option value="Four-Wheeler">Four-Wheeler (Car/SUV)</option>
+                        <option value="Two-Wheeler">Two-Wheeler (Motorcycle/Scooter)</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Target Date</label>
+                        <!-- Added min restriction programmatically down below -->
+                        <input type="date" id="bookDate" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Preferred Time</label>
+                        <input type="time" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Mobile Contact Number</label>
+                    <input type="tel" id="userPhoneInput" pattern="[0-9]{10}" placeholder="Enter 10-digit number" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 outline-none">
+                </div>
+
+                <button type="submit" class="w-full bg-orange-400 hover:bg-orange-500 text-slate-950 font-black py-3 rounded-xl text-xs tracking-widest uppercase transition-all shadow-md mt-2">CONFIRM SERVICE ENTRY</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- INTERNAL CONTROL LOGIC -->
+    <script>
+        // --- 1. DISABLE PAST DAYS ---
+        const dateInput = document.getElementById('bookDate');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+
+        // --- 2. FORM SUBMISSION HANDLING ---
+        document.getElementById('normalServiceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const rawPhone = document.getElementById('userPhoneInput').value;
+            const date = document.getElementById('bookDate').value;
+            const type = document.getElementById('vehicleType').value;
+
+            // Formats with regional Indian prefix (+91) to help the SMS gateway route cleanly
+            const standardFormattedPhone = rawPhone.startsWith('+91') ? rawPhone : `+91${rawPhone}`;
+
+            const receiptMessage = `Mobile Garage Receipt: Your scheduled maintenance booking for ${type} on ${date} is confirmed! Our coordinator will contact you shortly. Thanks!`;
+
+            try {
+                // Dispatches to the SMS system API route
+                const response = await fetch('/api/send-sms', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phoneNumber: standardFormattedPhone, message: receiptMessage })
+                });
+                
+                if(!response.ok) {
+                    console.warn("Server parsed form, but gateway returned status error code.");
+                }
+            } catch (err) { 
+                console.error("Network communication failure:", err); 
+            }
+
+            // Open Success Modal Layer Interface UI
+            document.getElementById('successModalText').innerHTML = `Your scheduled profile has been registered successfully!<br>A confirmation receipt summary packet was pushed to cellular lines at <span class="text-emerald-400 font-bold">${standardFormattedPhone}</span>.`;
+            document.getElementById('successModal').classList.remove('popup-hidden');
+        });
+
+        // --- 3. CLOSE MODAL ACTION ---
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('successModal').classList.add('popup-hidden');
+            document.getElementById('normalServiceForm').reset();
+        });
+    </script>
+</body>
+</html>

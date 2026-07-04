@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Ramesh Kumar (Ghatline Towing)",
+    "specialty": "Tyres & Towing",
+    "vehicle": "Four-Wheeler",
+    "phone": "+91 98765 43210",
+    "priceRating": "Affordable",
+    "baseCharge": "₹500",
+    "location": "Ghat Section Curve 4",
+    "distanceKM": 2.4,
+    "photo": "https://images.unsplash.com/photo-1621905252507-b354bc25edac?w=150&h=150&fit=crop"
+  },
+  {
+    "id": 2,
+    "name": "Anand Rao (Highway Auto Masters)",
+    "specialty": "Engine & Electrical",
+    "vehicle": "Four-Wheeler",
+    "phone": "+91 87654 32109",
+    "priceRating": "Moderate",
+    "baseCharge": "₹800",
+    "location": "Outskirts Highway Milestone 42",
+    "distanceKM": 4.1,
+    "photo": "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?w=150&h=150&fit=crop"
+  },
+  {
+    "id": 3,
+    "name": "K. Sai Prashanth (Quick Fix)",
+    "specialty": "Two-Wheeler Specialized",
+    "vehicle": "Two-Wheeler",
+    "phone": "+91 76543 21098",
+    "priceRating": "Budget-Friendly",
+    "baseCharge": "₹300",
+    "location": "Hill Road Junction",
+    "distanceKM": 1.2,
+    "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop"
+  },
+  {
+    "id": 4,
+    "name": "Vikram Singh (Mountain Rescue)",
+    "specialty": "Engine & Electrical",
+    "vehicle": "Two-Wheeler",
+    "phone": "+91 65432 10987",
+    "priceRating": "Premium",
+    "baseCharge": "₹1200",
+    "location": "Upper Ghat Checkpost",
+    "distanceKM": 5.8,
+    "photo": "https://images.unsplash.com/photo-1618018352910-3309981274ed?w=150&h=150&fit=crop"
+  }
+]
