@@ -1,1 +1,0 @@
-# FlashMart---An-ecommerce-Platform
